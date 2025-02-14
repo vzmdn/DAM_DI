@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="piramide()">
+    <div id="resultado"></div>
+</body>
+
+</html>
+
+<script>
+    function piramide() {
+        let max = prompt("cuantos numeros?");
+        let linea = 1;
+        while (linea <= max) {
+            let i = 1;
+            let str = "";
+            while (linea >= i) {
+                str = str += linea + " "
+                i++;
+            }
+            str += "<br>";
+            linea++
+        }
+        //document.write(str);
+        document.getElementById("resultado").innerHTML = str;
+    }
+</script>

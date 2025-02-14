@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pipati</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .vs {
+            font-size: 3em;
+            font-weight: bold;
+            color: red;
+        }
+
+        .extra {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #ddd;
+            font-size: 1.5em;
+        }
+
+        .score {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game">
+        <div class="container">
+            <div id="player" class="box">
+                <img id="player-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHUJC8jEeN75x2WV-hpABjfhNZVcksmg3wjw&s" alt="Player Image">
+            </div>
+            <div class="vs">VS</div>
+            <div id="cpu" class="box">
+                <img id="cpu-img" src="https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png" alt="CPU Image">
+            </div>
+        </div>
+        <div id="winner" class="extra">
+            ¿quién gana?
+        </div>
+
+        <div class="score">
+            victorias: <span id="player-score">0</span> | derrotas: <span id="cpu-score">0</span>
+        </div>
+
+        <!-- Buttons to choose Piedra, Papel, Tijera -->
+        <div class="buttons">
+            <button data-choice="piedra">piedra</button>
+            <button data-choice="papel">papel</button>
+            <button data-choice="tijera">tijera</button>
+        </div>
+    </div>
+
+    <script>
+        const images = {
+            piedra: "https://i.pinimg.com/564x/fc/e2/74/fce2740d6f3fe82e8d934d1d67169a4b.jpg",
+            papel: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Toiletpapier_%28Gobran111%29.jpg/220px-Toiletpapier_%28Gobran111%29.jpg",
+            tijera: "https://i.ebayimg.com/images/g/7UMAAOSw-otjIPzs/s-l1200.jpg"
+        };
+
+        const outcomes = {
+            piedra: { piedra: "empate", papel: "pierdes", tijera: "ganas" },
+            papel: { piedra: "ganas", papel: "empate", tijera: "pierdes" },
+            tijera: { piedra: "pierdes", papel: "ganas", tijera: "empate" }
+        };
+
+        let playerWins = 0;
+        let cpuWins = 0;
+
+        function jugar(user) {
+            const machine = ["piedra", "papel", "tijera"][Math.floor(Math.random() * 3)];
+            document.getElementById("player-img").src = images[user];
+            document.getElementById("cpu-img").src = images[machine];
+            const result = outcomes[user][machine];
+
+            document.getElementById("winner").textContent = result;
+
+            // Update scores based on the outcome
+            if (result.includes("ganas")) {
+                // Player wins
+                playerWins++;
+            } else if (result.includes("pierdes")) {
+                // CPU wins
+                cpuWins++;
+            }
+
+            // Update score display
+            document.getElementById("player-score").textContent = playerWins;
+            document.getElementById("cpu-score").textContent = cpuWins;
+        }
+
+        document.querySelectorAll("button").forEach(button => {
+            button.addEventListener("click", () => jugar(button.dataset.choice));
+        });
+    </script>
+</body>
+
+</html>

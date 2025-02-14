@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="primos()">
+    <p>números primos y su suma</p>
+</body>
+
+</html>
+
+<script>
+    function primos() {
+        let primosString = "";
+        let suma = 0;
+        for (let i = 2; i <= 50; i++) {
+            if(esPrimo(i)){
+                primosString += i + ", ";
+                suma += i;
+            }
+        }
+        primosString = primosString.slice(0,-2);
+        document.write("primos: " + primosString);
+        document.write("<br>");
+        document.write("suma: " + suma);
+    }
+
+    function esPrimo(num) {
+        for(let i = 2; i<=(num/2); i++){
+            if(num%i == 0) return false;
+        }
+        return true;
+    }
+</script>

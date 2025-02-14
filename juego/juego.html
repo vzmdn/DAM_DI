@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pipati</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .vs {
+            font-size: 3em;
+            font-weight: bold;
+            color: red;
+        }
+
+        .extra {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #ddd;
+            font-size: 1.5em;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game">
+        <div class="container">
+            <div id="player" class="box">
+                <img id="player-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHUJC8jEeN75x2WV-hpABjfhNZVcksmg3wjw&s" alt="Player Image">
+            </div>
+            <div class="vs">VS</div>
+            <div id="cpu" class="box">
+                <img id="cpu-img" src="https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png" alt="CPU Image">
+            </div>
+        </div>
+        <div id="winner" class="extra">
+            ¿quién gana?
+        </div>
+
+        <!-- Buttons to choose Piedra, Papel, Tijera -->
+        <div class="buttons">
+            <button id="piedra-button">piedra</button>
+            <button id="papel-button">papel</button>
+            <button id="tijera-button">tijera</button>
+        </div>
+    </div>
+
+    <script>
+        function jugar(user) {
+            // CPU's random choice
+            let n = Math.floor((Math.random() * 3) + 1);
+            let machine = "";
+
+            switch (n) {
+                case 1: machine = "piedra"; break;
+                case 2: machine = "papel"; break;
+                case 3: machine = "tijera"; break;
+            }
+
+            // Update player and CPU images
+            let playerImg = document.getElementById("player-img");
+            let cpuImg = document.getElementById("cpu-img");
+
+            switch (user) {
+                case "piedra":
+                    playerImg.src = "https://i.pinimg.com/564x/fc/e2/74/fce2740d6f3fe82e8d934d1d67169a4b.jpg";
+                    break;
+                case "papel":
+                    playerImg.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Toiletpapier_%28Gobran111%29.jpg/220px-Toiletpapier_%28Gobran111%29.jpg";
+                    break;
+                case "tijera":
+                    playerImg.src = "https://i.ebayimg.com/images/g/7UMAAOSw-otjIPzs/s-l1200.jpg";
+                    break;
+            }
+
+            switch (machine) {
+                case "piedra":
+                    cpuImg.src = "https://i.pinimg.com/564x/fc/e2/74/fce2740d6f3fe82e8d934d1d67169a4b.jpg";
+                    break;
+                case "papel":
+                    cpuImg.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Toiletpapier_%28Gobran111%29.jpg/220px-Toiletpapier_%28Gobran111%29.jpg";
+                    break;
+                case "tijera":
+                    cpuImg.src = "https://i.ebayimg.com/images/g/7UMAAOSw-otjIPzs/s-l1200.jpg";
+                    break;
+            }
+
+            // Determine the winner
+            let result = "";
+            switch (user) {
+                case "piedra":
+                    if (machine === "piedra") result = "the rock no tiene rival";
+                    else if (machine === "papel") result = "limpiate neno";
+                    else result = "the rock machaca la tijera";
+                    break;
+                case "papel":
+                    if (machine === "piedra") result = "the rock empapelado";
+                    else if (machine === "papel") result = "papel con papel = papel";
+                    else result = "te cortaron we";
+                    break;
+                case "tijera":
+                    if (machine === "piedra") result = "the rock te machaca";
+                    else if (machine === "papel") result = "cortas el papel";
+                    else result = "tijera con tijera..";
+                    break;
+            }
+
+            // Display the result
+            document.getElementById("winner").innerHTML = result;
+        }
+
+        // Add event listeners to each button
+        document.getElementById("piedra-button").addEventListener("click", function () {
+            jugar("piedra");
+        });
+
+        document.getElementById("papel-button").addEventListener("click", function () {
+            jugar("papel");
+        });
+
+        document.getElementById("tijera-button").addEventListener("click", function () {
+            jugar("tijera");
+        });
+    </script>
+</body>
+
+</html>

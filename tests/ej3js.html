@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body onload="primos()">
+    <p>Primeros x primos y su suma:</p>
+    <div id="resultado"></div>
+</body>
+</html>
+
+<script>
+    function primos() {
+        let primos = [];
+        let cantidad = prompt("cuantos primos?");
+        let suma = 0;
+        let num = 2;
+
+        while (primos.length < cantidad) {
+            if (esPrimo(num)) {
+                primos.push(num);
+                suma += num;
+            }
+            num++;
+        }
+        document.getElementById("resultado").innerHTML = "Primos: " + primos.join((", ")) + "<br>Suma: " + suma;
+    }
+
+    function esPrimo(num) {
+        if (num < 2) return false;
+        for (let i = 2; i <= num/2; i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+</script>
