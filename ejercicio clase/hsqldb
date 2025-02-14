@@ -1,0 +1,5 @@
+DELETE FROM players
+WHERE cod_sport = n;
+
+DELETE FROM sports
+WHERE cod = n;
